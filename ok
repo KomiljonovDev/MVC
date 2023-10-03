@@ -20,7 +20,9 @@
         if ($method == "make") {
             if ($parametr == 'controller') {
                 if (file_exists('./Controllers/' . ucfirst($name) . ".php")) die(ucfirst($name) . " Controller avvaldan mavjud.");
-                file_put_contents('./Controllers/' . ucfirst($name) . ".php", "<?php\n?>");
+                file_put_contents('./Controllers/' . ucfirst($name) . ".php", "<?php\n\n?>");
+                file_put_contents("./Models/" . ucfirst(explode("controller", strtolower($name))[0]) . ".php", "<?php\n\n?>");
+                echo ucfirst($name) . " Controller ochildi.";
             }
         }
     }
