@@ -10,11 +10,6 @@
         if (!file_exists("./Controllers")) mkdir("./Controllers");
         if (!file_exists("./Models")) mkdir("./Models");
         if (!file_exists("./Views")) mkdir("./Views");
-        if (!file_exists("./public")) mkdir("./public");
-        if (!file_exists("./public/index.php")) file_put_contents("./public/index.php", "<?php\n\n?>");
-        if (!file_exists("./routes")) mkdir("./routes");
-        if (!file_exists("./routes/web.php")) file_put_contents("./routes/web.php", "<?php\n\n?>");
-        if (!file_exists("./Core")) mkdir("./Core");
 
         echo "\nKonfiguratsiya nixoyasiga yetdi";
     }
