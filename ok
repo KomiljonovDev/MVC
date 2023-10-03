@@ -4,7 +4,6 @@
     if (!$command) {
         die("Quyidagi buyruqlardan biridan foydalaning:");
     }
-
     if ($command == "configuration") {
         echo "Konfiguratsiya boshlanmoqda...";
         if (!file_exists("./Controllers")) mkdir("./Controllers");
@@ -13,7 +12,6 @@
 
         echo "\nKonfiguratsiya nixoyasiga yetdi";
     }
-
     if (mb_stripos($command, ":")) {
         $data = explode(":", $command);
         $method = $data[0];
