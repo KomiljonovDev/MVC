@@ -1,5 +1,28 @@
 <?php
+    $command = strtolower($argv[1]);
 
-    echo "Started..";
+    if (!$command) {
+        die("Quyidagi buyruqlardan biridan foydalaning:");
+    }
+
+    if ($command == "configuration") {
+        if (!file_exists("./Controllers")) mkdir("./Controllers");
+        if (!file_exists("./Models")) mkdir("./Models");
+        if (!file_exists("./Views")) mkdir("./Views");
+    }
+
+    if (mb_stripos($command, ":")) {
+        $data = explode(":", $command);
+        $method = $data[0];
+        $parametr = $data[1];
+        $name = $argv[2];
+        print_r($data);
+        if ($method == "make") {
+            if ($parametr == 'controller') {
+                if (file_exists('./Controllers/' . ucfirst($name) . ".php")) die(ucfirst($name) . " Controller avvaldan mavjud.");
+                file_put_contents('./Controllers/' . ucfirst($name) . ".php", "<?php\n?>");
+            }
+        }
+    }
 
 ?>
