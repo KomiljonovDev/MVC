@@ -61,7 +61,7 @@ class Response {
     }
 
     public static function errorPage () {
-        return view('errorPage',[
+        return view('pages/errorPage',[
             'errorCode'=>Response::getHttpstatus(),
             'headerName'=>Response::geetHttpHeadername()
         ]);
