@@ -2,6 +2,7 @@
 
     $command = strtolower($argv[1]);
 
+
     if (!$command) {
         die("Quyidagi buyruqlardan biridan foydalaning:");
     }
