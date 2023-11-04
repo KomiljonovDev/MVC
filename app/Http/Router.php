@@ -5,10 +5,10 @@ namespace app\Http;
 final class Router {
     private static $routes = [];
     public static function get ($url, $Controller) {
-        self::$routes = array_merge(self::$routes, [$url => ['Controller'=>$Controller[0], 'method'=>$Controller[1], 'type'=>'GET']]);
+        self::$routes = array_merge(self::$routes, [Request::scriptName() . $url => ['Controller'=>$Controller[0], 'Method'=>$Controller[1], 'type'=>'GET']]);
         return self::$routes;
     }
-    public static function currentUrl () {
-        return $_SERVER['REQUEST_URI'];
+    public static function routeAll () {
+        return self::$routes;
     }
 }
