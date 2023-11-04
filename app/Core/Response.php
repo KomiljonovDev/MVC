@@ -15,7 +15,7 @@ final class Response {
             $classMethod = $Controller['Method'];
             call_user_func_array([$className, $classMethod], Request::params());
         }else{
-            \app\Http\Response::setHttpstatus(404);
+            \app\Http\Response::setHttpstatus(501);
             return \app\Http\Response::errorPage();
         }
     }

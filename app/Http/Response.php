@@ -53,14 +53,17 @@ class Response {
         header($protocol . ' ' . $HttpResponseCode . ' ' . self::$responseText);
     }
 
-    public static function geetHttpstatus () {
+    public static function getHttpstatus () {
         return http_response_code();
+    }
+    public static function geetHttpHeadername () {
+        return self::$responseText;
     }
 
     public static function errorPage () {
         return view('errorPage',[
-            'errorCode'=>Response::geetHttpstatus(),
-            'headerName'=>self::$responseText
+            'errorCode'=>Response::getHttpstatus(),
+            'headerName'=>Response::geetHttpHeadername()
         ]);
     }
 }
