@@ -6,4 +6,5 @@ class Controller {
     public static function index ():void {
         echo "Hello World";
     }
+    
 }
