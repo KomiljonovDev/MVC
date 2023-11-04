@@ -6,7 +6,7 @@
     use app\Core\Response;
     use app\Http\Router;
 
-    (Router::get('url', [Controller::class, 'index']));
+    Router::get('url', [Controller::class, 'index']);
     Response::run();
 
 ?>
