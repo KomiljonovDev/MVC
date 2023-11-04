@@ -1,4 +1,5 @@
 <?php
+
     $command = strtolower($argv[1]);
 
     if (!$command) {
@@ -11,6 +12,9 @@
         if (!file_exists("./Views")) mkdir("./Views");
 
         echo "\nKonfiguratsiya nixoyasiga yetdi";
+    }
+    if (mb_stripos($command, 'server')!==false){
+        exec("php -S localhost:8888 " . __DIR__ . "/public/index.php");
     }
     if (mb_stripos($command, ":")) {
         $data = explode(":", $command);
