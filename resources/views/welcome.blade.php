@@ -1,12 +1,12 @@
 <html>
-    <head>
+<head>
 
-    </head>
-    <body>
-        <h1>
-            <?php
-                echo $message;
-            ?>
-        </h1>
-    </body>
+</head>
+<body>
+<?php
+
+echo "Hello World";
+
+?>
+</body>
 </html>
