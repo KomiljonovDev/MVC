@@ -1,7 +1,8 @@
 <?php
 
 namespace app\Core\Model;
+use App\Core\database\Connector;
 
-class Model {
+abstract class Model extends Connector{
 
 }
