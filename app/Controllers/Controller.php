@@ -6,6 +6,7 @@ use app\Core\Model\Model;
 use app\Models\User;
 
 
+
 class Controller {
     public static function welcome ():void {
         return view('welcome',[
