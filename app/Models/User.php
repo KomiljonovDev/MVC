@@ -2,7 +2,7 @@
 
 namespace app\Models;
 
-use app\Core\Model\Model;
+use App\Core\database\Model;
 
 class User extends Model {
     public function __construct () {
