@@ -38,7 +38,7 @@ abstract class Connector {
     }
 
     // Ma'lumot bazasi bilan aloqada vujudga kelishi mumkin bo'lgan xatolikdan qochib qutulish
-    public function escapeString($value)
+    public static function escapeString($value)
     {
         self::connect();
         return mysqli_real_escape_string(self::$conn, $value);

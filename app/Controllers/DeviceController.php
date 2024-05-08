@@ -8,6 +8,11 @@ use app\Models\Devices;
 
 class DeviceController {
     public static function getDevices () {
+        Devices::insertInto([
+            'name'=>'sdbscdcsdcbds',
+            'lastname'=>'sdjcnsdbcshdbc',
+            'token'=>'facvdcdscsfcgcfgftfgjcf'
+        ]);
         return Devices::selectAll();
     }
     public static function welcome ():void {
@@ -22,7 +27,15 @@ class DeviceController {
     }
 
     public static function  login() {
-        view('login');
+        Devices::selectWhere([
+            [
+                'id'=>2,
+                'cn'=>'='
+            ]
+        ]);
+        view('login',[
+            'lastname'=>Devices::fetch()['name']
+        ]);
     }
 
 }

@@ -11,7 +11,11 @@ function getDefualt ($fileName) {
 
 function env ($env_key=null) {
     $envs = [];
-    $get_env = explode("\n", file_get_contents('../.env'));
+    if (file_exists('../.env')){
+        $get_env = explode("\n", file_get_contents('../.env'));
+    }else{
+        $get_env = explode("\n", file_get_contents('./.env'));
+    }
     foreach ($get_env as $env) {
         $explode_env = explode("=", $env);
         if (strlen($explode_env[0])<=1) continue;
@@ -23,6 +27,5 @@ function env ($env_key=null) {
         }
         return NULL;
     }
-//    return $envs;
 }
 ?>

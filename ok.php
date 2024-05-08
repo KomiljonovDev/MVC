@@ -13,7 +13,6 @@
         if (!file_exists("./App/Models/")) mkdir("./App/Models");
         if (!file_exists("./resources/Views")) mkdir("./resources/Views");
         if (!file_exists("./database/migrations")) mkdir("./database/migrations");
-
         echo "\nKonfiguratsiya nixoyasiga yetdi";
     }
     if (mb_stripos($command, ":")) {
@@ -27,7 +26,7 @@
                 if (file_exists('./App/Controllers/' . ucfirst($name) . ".php")) die(ucfirst($name) . " Controller avvaldan mavjud.");
 
                 $Controller = getDefualt('./src/default/Controller');
-                $Controller = str_replace(['{ControllerName}', '{Model}'],[ucfirst($name),$ModelName], $Model);
+                $Controller = str_replace('{ControllerName}',ucfirst($name), $Controller);
 
                 file_put_contents('./App/Controllers/' . ucfirst($name) . ".php", $Controller);
                 echo ucfirst($name) . " Controller ochildi.";
@@ -45,7 +44,7 @@
                 $name = strtolower($name) . 's';
                 $filename = 'migration_' . date('Y_m_d_His') . '_create_' . $name . ".php";
                 $Migration = getDefualt('./src/default/Migration');
-                $Migration = str_replace('{migrationName}',strtolower($name), $Migration);
+                $Migration = str_replace(['{className}','{migrationName}'],[ucwords($name),strtolower($name)], $Migration);
 
                 file_put_contents("./database/migrations/" . $filename, $Migration);
                 echo ucfirst($filename) . " Migration ochildi ochildi.";
