@@ -2,11 +2,13 @@
 
 namespace app\Controllers;
 
+use App\Core\database\Migration;
 use app\Http\Request;
+use app\Models\Devices;
 
 class DeviceController {
     public static function getDevices () {
-        return Request::getHeaders();
+        return Devices::selectAll();
     }
     public static function welcome ():void {
         view('welcome',[
