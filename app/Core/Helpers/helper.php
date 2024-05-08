@@ -5,6 +5,10 @@ function view ($view, $params=[]) {
     include "../resources/views/" . $view . ".blade.php";
 }
 
+function getDefualt ($fileName) {
+    return file_get_contents($fileName);
+}
+
 function env ($env_key=null) {
     $envs = [];
     $get_env = explode("\n", file_get_contents('../.env'));

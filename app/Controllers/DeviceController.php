@@ -3,12 +3,11 @@
 namespace app\Controllers;
 
 
-use app\Core\Model\Devices;
+use app\Models\Devices;
 
-class Controller {
-
-    public static function signup () {
-        echo json_encode(Devices::selectAll(), JSON_PRETTY_PRINT);
+class DeviceController {
+    public static function getDevices () {
+        return Devices::selectAll();
     }
     public static function welcome ():void {
         view('welcome',[

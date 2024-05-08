@@ -15,9 +15,17 @@ final class Response {
             if (Request::getMethod() == $Controller['type']) {
                 $className = new $Controller['Controller'];
                 $classMethod = $Controller['Method'];
-                return call_user_func_array([$className, $classMethod], Request::params());
+                $response = call_user_func_array([$className, $classMethod], Request::params());
+                if (gettype($response)=='array' || gettype($response) == 'object'){
+                    \app\Http\Response::setHttpstatus(200);
+                    \app\Http\Response::setHeader('Content-type', 'json');
+                    echo json_encode($response,JSON_PRETTY_PRINT);
+                    return  true;
+                }
+                echo $response;
+                return true;
             }
-            HttpResponse::setHttpstatus(404);
+            HttpResponse::setHttpstatus(405);
             return HttpResponse::errorPage();
         }
         HttpResponse::setHttpstatus(404);

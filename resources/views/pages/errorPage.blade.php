@@ -18,7 +18,7 @@
                 </h1>
                 <p>
                     <?php
-                    echo $headerName;
+                    echo $headerText;
                     ?>
                 </p>
             </div>

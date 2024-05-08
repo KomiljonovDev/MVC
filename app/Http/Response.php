@@ -53,17 +53,21 @@ class Response {
         header($protocol . ' ' . $HttpResponseCode . ' ' . self::$responseText);
     }
 
+    public static function setHeader ($headerName, $value) {
+        header($headerName . ": " . $value);
+    }
+
     public static function getHttpstatus () {
         return http_response_code();
     }
-    public static function geetHttpHeadername () {
+    public static function getHttpHeaderText () {
         return self::$responseText;
     }
 
     public static function errorPage () {
         return view('pages/errorPage',[
             'errorCode'=>Response::getHttpstatus(),
-            'headerName'=>Response::geetHttpHeadername()
+            'headerText'=>Response::getHttpHeaderText()
         ]);
     }
 }
