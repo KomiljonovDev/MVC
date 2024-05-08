@@ -1,18 +1,19 @@
 <?php
 use \App\Core\database\Migration;
 class tests extends Migration {
-    public function up(){
+    public static function up(){
         parent::create('tests',[
            'id'=>'INT PRIMARY KEY',
             'created_at'=>'DATETIME',
             'deleted_at'=>'DATETIME'
         ]);
     }
-    public function drop(){
+    public static function drop(){
         if (parent::tabeleExist('tests')){
             parent::drop('tests');
         }
     }
 }
+
 
 ?>
