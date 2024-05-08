@@ -50,7 +50,7 @@
                 file_put_contents("./database/migrations/" . $filename, $Migration);
                 echo ucfirst($filename) . " Migration ochildi ochildi.";
             }elseif ($parametr == 'migrate'){
-                
+
             }
         }
     }

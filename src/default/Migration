@@ -1,0 +1,15 @@
+<?php
+use \App\Core\database\Migration;
+class {migrationName} extends Migration {
+    public function up(){
+        parent::create('{migrationName}',[
+           'id'=>'INT PRIMARY KEY',
+            'created_at'=>'DATETIME',
+            'deleted_at'=>'DATETIME'
+        ]);
+    }
+    public function drop(){
+        parent::drop('{migrationName}');
+    }
+}
+?>
