@@ -2,12 +2,11 @@
 
 namespace app\Controllers;
 
-
-use app\Models\Devices;
+use app\Http\Request;
 
 class DeviceController {
     public static function getDevices () {
-        return Devices::selectAll();
+        return Request::getHeaders();
     }
     public static function welcome ():void {
         view('welcome',[

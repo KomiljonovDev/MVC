@@ -7,6 +7,10 @@ class Request {
         return $_SERVER['REQUEST_URI'];
     }
 
+    public static function getHeaders () {
+        return apache_request_headers();
+    }
+
     public static function scriptName () {
         return str_replace('index.php', '', $_SERVER["SCRIPT_NAME"]);
     }
