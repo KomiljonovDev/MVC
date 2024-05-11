@@ -66,7 +66,7 @@ abstract class Connector {
                 foreach ($values as $key => $value) {
                     if ($key !== 'cn') {
                         self::$sqlQuery .= self::escapeString($key) . " " . $values['cn'] . "'";
-                        self::$sqlQuery .= self::escapeString($values[$key]);
+                        self::$sqlQuery .= self::escapeString($values[$key] ?? '');
                         self::$sqlQuery .= "' and ";
                     }
                 }
@@ -108,7 +108,7 @@ abstract class Connector {
             foreach ($values as $key => $value) {
                 if ($key != 'cn') {
                     self::$sqlQuery .= self::escapeString($key) . " " . $values['cn'] . "'";
-                    self::$sqlQuery .= self::escapeString($values[$key]) . "'";
+                    self::$sqlQuery .= self::escapeString($values[$key] ?? '') . "'";
                     self::$sqlQuery .= ' and ';
                 }
             }
