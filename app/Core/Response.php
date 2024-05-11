@@ -17,7 +17,6 @@ final class Response {
                 $classMethod = $Controller['Method'];
                 $response = call_user_func_array([$className, $classMethod], Request::params());
                 if (gettype($response)=='array' || gettype($response) == 'object'){
-                    \app\Http\Response::setHttpstatus(200);
                     \app\Http\Response::setHeader('Content-type', 'json');
                     echo json_encode($response,JSON_PRETTY_PRINT);
                     return  true;
