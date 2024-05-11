@@ -2,17 +2,10 @@
 
 namespace app\Controllers;
 
-use App\Core\database\Migration;
-use app\Http\Request;
 use app\Models\Devices;
 
-class DeviceController {
+class DeviceController extends Controller {
     public static function getDevices () {
-        Devices::insertInto([
-            'name'=>'sdbscdcsdcbds',
-            'lastname'=>'sdjcnsdbcshdbc',
-            'token'=>'facvdcdscsfcgcfgftfgjcf'
-        ]);
         return Devices::selectAll();
     }
     public static function welcome ():void {
