@@ -14,9 +14,9 @@ class UserController extends Controller {
             'username'=>'required|string',
             'password'=>'required|string'
         ]);
-        User::selectWhere([['username' => $attributes['username'], 'cn' => '=']]);
+        $user = User::selectWhere([['username' => $attributes['username'], 'cn' => '=']]);
         if (User::rowCount()){
-            return view('login', ['lastname' => User::fetch()]);
+            return view('login', $user);
         }
         Response::setHttpstatus(401);
         return ['error', 'message'=>Response::getHttpstatus()];
@@ -29,6 +29,7 @@ class UserController extends Controller {
             'phone'=>'optional|string',
             'password'=>'required|string'
         ]);
+        $attributes['token'] = uniqid(rand(0,100));
         return User::create($attributes);
     }
 }

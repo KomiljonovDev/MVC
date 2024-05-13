@@ -1,1 +1,1 @@
-<h1>Welcome to Login page Bobur <?php echo $lastname; ?></h1>
+<h1>Welcome to Login page <?php echo $username; ?></h1>
