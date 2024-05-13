@@ -35,7 +35,7 @@
 
                 $ModelName = ucfirst(explode("controller", strtolower($name))[0]);
                 $Model = getDefualt('./src/default/Model');
-                $Model = str_replace(['{ModelName}', '{strtolower(ModelName)}'],[ucfirst(explode("controller", strtolower($name))[0]),strtolower(explode("controller", strtolower($name))[0])], $Model);
+                $Model = str_replace(['{ModelName}', '{strtolower(ModelName)}'],[ucfirst(explode("controller", strtolower($name))[0]),strtolower(explode("controller", strtolower($name))[0] . 's')], $Model);
 
                 file_put_contents("./App/Models/" . $ModelName . ".php", $Model);
                 echo ucfirst($name) . " Model ochildi.";

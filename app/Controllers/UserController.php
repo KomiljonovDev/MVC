@@ -16,8 +16,6 @@ class UserController extends Controller {
             'password'=>'required|string'
         ]);
 
-        print_r(json_encode($attributes));
-
         User::selectWhere([['username' => $attributes['username'], 'cn' => '=']]);
         if (User::rowCount()){
             return view('login', ['lastname' => User::fetch()]);
