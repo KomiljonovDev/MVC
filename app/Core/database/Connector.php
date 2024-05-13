@@ -41,7 +41,7 @@ abstract class Connector {
     public static function escapeString($value)
     {
         self::connect();
-        return mysqli_real_escape_string(self::$conn, $value);
+        return mysqli_real_escape_string(self::$conn, $value ?? '');
     }
 
     // Ma'lumotlar bazasidan barcha ma'lumotlarni olish
@@ -76,7 +76,7 @@ abstract class Connector {
             self::$sqlQuery .= $condition;
         }
         self::$dataSet = mysqli_query(self::$conn, self::$sqlQuery);
-        return self::$dataSet;
+        return self::fetch();
     }
 
     // Ma'lumotlar bazasiga ma'lumot kiritish
@@ -96,7 +96,14 @@ abstract class Connector {
         $columns .= ')';
         $values .= ')';
         self::$sqlQuery .= $columns . ' VALUES ' . $values;
-        return (mysqli_query(self::$conn, self::$sqlQuery)) ? true : false;
+        if(mysqli_query(self::$conn, self::$sqlQuery)) {
+            return self::selectWhere([['id'=>self::$conn->insert_id,'cn'=>'=']]);
+        }
+        return false;
+    }
+
+    public static function create (array $data) {
+        return self::insertInto($data);
     }
 
     // Ma'lumotlar bazasidan biror ma'lumotni shartga ko'ra o'chirish
