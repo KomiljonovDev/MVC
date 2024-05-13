@@ -5,7 +5,6 @@ namespace app\Controllers;
 
 use app\Http\Request;
 use app\Http\Response;
-use app\Models\Devices;
 use app\Models\User;
 
 class UserController extends Controller {
