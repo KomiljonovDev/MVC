@@ -8,14 +8,14 @@ use \app\Http\Response as HttpResponse;
 
 final class Response {
     public static function run () {
-        $request = Request::currentUrl();
+        $request = Request::getRequestUrl();
         $routes = Router::routeAll();
         if (array_key_exists($request, $routes)) {
             $Controller = $routes[$request];
             if (Request::getMethod() == $Controller['type']) {
                 $className = new $Controller['Controller'];
                 $classMethod = $Controller['Method'];
-                $response = call_user_func_array([$className, $classMethod], Request::params());
+                $response = call_user_func_array([$className, $classMethod], [new Request]);
                 if (gettype($response)=='array' || gettype($response) == 'object'){
                     \app\Http\Response::setHeader('Content-type', 'json');
                     echo json_encode($response,JSON_PRETTY_PRINT);

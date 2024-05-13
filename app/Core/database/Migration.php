@@ -14,7 +14,7 @@ class Migration extends Connector {
         return parent::$dataSet;
     }
 
-    public static function drop (string $tablename) {
+    public static function dropTable (string $tablename) {
         parent::connect();
         parent::$sqlQuery = "DROP TABLE " . $tablename;
         parent::$dataSet = mysqli_query(parent::$conn, parent::$sqlQuery);

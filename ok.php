@@ -50,6 +50,12 @@
                 echo ucfirst($filename) . " Migration ochildi ochildi.";
             }elseif ($parametr == 'migrate'){
 
+                require __DIR__ . '/app/Core/database/Connector.php';
+                require __DIR__ . '/app/Core/database/Migration.php';
+                require __DIR__ . '/database/migrations/migration_2024_05_13_112513_create_users.php';
+                $m = new \database\migrations\Users();
+                print_r($m->up());
+
             }
         }
     }

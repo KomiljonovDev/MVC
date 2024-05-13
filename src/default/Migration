@@ -3,7 +3,7 @@ use \App\Core\database\Migration;
 class {className} extends Migration {
     public function up(){
         parent::create('{migrationName}',[
-           'id'=>'INT PRIMARY KEY',
+            'id'=>'INT PRIMARY KEY',
             'created_at'=>'DATETIME',
             'deleted_at'=>'DATETIME'
         ]);
