@@ -24,7 +24,7 @@ class Request {
         return $_SERVER['REQUEST_METHOD'];
     }
     public static function params ($key=null) {
-        if ($key) return $_REQUEST[$key];
+        if ($key) return array_key_exists($key,$_REQUEST) ? $_REQUEST[$key] : null;
         return $_REQUEST;
     }
 
