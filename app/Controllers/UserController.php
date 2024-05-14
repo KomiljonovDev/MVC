@@ -8,17 +8,24 @@ use app\Http\Response;
 use app\Models\User;
 
 class UserController extends Controller {
+
+    public static function home () {
+        return view('welcome',[
+            'message'=>'Salom'
+        ]);
+    }
     public static function login(Request $request) {
         $attributes = $request->validate([
             'username'=>'required|string',
             'password'=>'required|string'
         ]);
-        $user = User::selectWhere([['username' => $attributes['username'], 'cn' => '=']]);
+        $user = User::selectWhere([['username' => $attributes['username'], 'cn' => '='],['password'=>md5($attributes['password']),'cn'=>'=']]);
         if (User::rowCount()){
-            return view('login', $user);
+            unset($user['password']);
+            return $user;
         }
         Response::setHttpstatus(401);
-        return ['error', 'message'=>Response::getHttpstatus()];
+        return ['error'=>Response::getHttpstatus(), 'message'=>Response::getHttpHeaderText()];
     }
 
     public static function signup (Request $request) {
@@ -29,6 +36,9 @@ class UserController extends Controller {
             'password'=>'required|string'
         ]);
         $attributes['token'] = uniqid(rand(0,100));
-        return User::create($attributes);
+        $attributes['password'] = md5($attributes['password']);
+        $user = User::create($attributes);
+        unset($user['password']);
+        return $user;
     }
 }

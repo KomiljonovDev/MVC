@@ -14,6 +14,9 @@
         if (!file_exists("./resources/Views")) mkdir("./resources/Views");
         if (!file_exists("./database/migrations")) mkdir("./database/migrations");
         echo "\nKonfiguratsiya nixoyasiga yetdi";
+    }elseif ($command == "serve"){
+        print("Server ishga tushmoqda");
+        exec("php -S localhost:8000 public/index.php");
     }
     if (mb_stripos($command, ":")) {
         $data = explode(":", $command);

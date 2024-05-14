@@ -10,6 +10,7 @@ abstract class Connector {
     protected static $conn = NULL;
     protected static $sqlQuery = NULL;
     protected static $dataSet = NULL;
+    protected static $params = NULL;
 
     public static function connect () {
         self::$HOSTNAME = env("HOSTNAME");
@@ -41,7 +42,7 @@ abstract class Connector {
     public static function escapeString($value)
     {
         self::connect();
-        return mysqli_real_escape_string(self::$conn, $value ?? '');
+        return mysqli_real_escape_string(self::$conn, $value);
     }
 
     // Ma'lumotlar bazasidan barcha ma'lumotlarni olish
@@ -50,10 +51,7 @@ abstract class Connector {
         self::connect();
         self::$sqlQuery = 'SELECT * FROM ' . self::$DATABASE_NAME . '.' . static::$tablename;
         self::$dataSet = mysqli_query(self::$conn, self::$sqlQuery);
-        foreach (self::$dataSet as $key => $value){
-            $arr[] = $value;
-        }
-        return $arr;
+        return self::get();
     }
 
     // Ma'lumotlar bazasidan biror shartga ko'ra ma'lumot olish
@@ -65,9 +63,9 @@ abstract class Connector {
             foreach ($condition as $keys => $values) {
                 foreach ($values as $key => $value) {
                     if ($key !== 'cn') {
-                        self::$sqlQuery .= self::escapeString($key) . " " . $values['cn'] . "'";
-                        self::$sqlQuery .= self::escapeString($values[$key] ?? '');
-                        self::$sqlQuery .= "' and ";
+                        self::$sqlQuery .= self::escapeString($key) . " " . $values['cn'];
+                        self::$sqlQuery .= $values[$key]!==null ? "'" . self::escapeString($values[$key]) . "'" : "NULL";
+                        self::$sqlQuery .= " and ";
                     }
                 }
             }
@@ -76,7 +74,7 @@ abstract class Connector {
             self::$sqlQuery .= $condition;
         }
         self::$dataSet = mysqli_query(self::$conn, self::$sqlQuery);
-        return self::fetch();
+        return self::get();
     }
 
     // Ma'lumotlar bazasiga ma'lumot kiritish
@@ -88,8 +86,7 @@ abstract class Connector {
         $values = "(";
         foreach ($data as $key => $value) {
             $columns .= self::escapeString($key) . ',';
-            $values .= "'";
-            $values .= self::escapeString($value) . "',";
+            $values .= $values!==null ? "'" . self::escapeString($value) . "'," : "NULL";
         }
         $columns = substr($columns, 0, strlen($columns)-1);
         $values = substr($values, 0, strlen($values)-1);
@@ -114,8 +111,8 @@ abstract class Connector {
         foreach ($condition as $values) {
             foreach ($values as $key => $value) {
                 if ($key != 'cn') {
-                    self::$sqlQuery .= self::escapeString($key) . " " . $values['cn'] . "'";
-                    self::$sqlQuery .= self::escapeString($values[$key] ?? '') . "'";
+                    self::$sqlQuery .= self::escapeString($key) . " " . $values['cn'];
+                    self::$sqlQuery .= $values[$key]!==null ? "'" . self::escapeString($values[$key]) . "'" : "NULL";
                     self::$sqlQuery .= ' and ';
                 }
             }
@@ -141,8 +138,8 @@ abstract class Connector {
         self::$sqlQuery .= ' WHERE ';
         foreach ($condition as $keys => $val) {
             if ($keys != 'cn') {
-                self::$sqlQuery .= self::escapeString($keys) . $condition['cn'] = "='";
-                self::$sqlQuery .= self::escapeString($condition[$keys]) . "' ";
+                self::$sqlQuery .= self::escapeString($keys) . $condition['cn'] = "=";
+                self::$sqlQuery .= $condition[$key]!==null ? "'" . self::escapeString($condition[$keys]) . "'" : "NULL";
                 self::$sqlQuery .= " and ";
             }
         }
@@ -166,6 +163,13 @@ abstract class Connector {
     }
 
     // Ma'lumotni tartib bilan o'qib olish
+    public static function get () {
+        $results = self::$dataSet;
+        foreach ($results as $result => $value) {
+            self::$params[$result] = $value;
+        }
+        return self::$params;
+    }
     public static function fetch()
     {
         self::connect();

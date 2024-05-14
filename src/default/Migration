@@ -8,7 +8,7 @@ class {className} extends Migration {
             'deleted_at'=>'DATETIME'
         ]);
     }
-    public function drop(){
+    public function dropTable(){
         parent::drop('{migrationName}');
     }
 }
