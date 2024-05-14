@@ -86,7 +86,7 @@ abstract class Connector {
         $values = "(";
         foreach ($data as $key => $value) {
             $columns .= self::escapeString($key) . ',';
-            $values .= $values!==null ? "'" . self::escapeString($value) . "'," : "NULL";
+            $values .= $value!==null ? "'" . self::escapeString($value) . "'," : "NULL,";
         }
         $columns = substr($columns, 0, strlen($columns)-1);
         $values = substr($values, 0, strlen($values)-1);

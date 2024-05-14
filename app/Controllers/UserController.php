@@ -21,7 +21,6 @@ class UserController extends Controller {
         ]);
         $user = User::selectWhere([['username' => $attributes['username'], 'cn' => '='],['password'=>md5($attributes['password']),'cn'=>'=']]);
         if (User::rowCount()){
-            unset($user['password']);
             return $user;
         }
         Response::setHttpstatus(401);
@@ -35,10 +34,14 @@ class UserController extends Controller {
             'phone'=>'optional|string',
             'password'=>'required|string'
         ]);
+        User::selectWhere([['username'=>$attributes['username'], 'cn'=>'=']]);
+        if (User::rowCount()){
+            Response::setHttpstatus(409);
+            return ['error'=>Response::getHttpstatus(), 'message'=>Response::getHttpHeaderText() . ". Username already exist"];
+        }
         $attributes['token'] = uniqid(rand(0,100));
         $attributes['password'] = md5($attributes['password']);
         $user = User::create($attributes);
-        unset($user['password']);
         return $user;
     }
 }
