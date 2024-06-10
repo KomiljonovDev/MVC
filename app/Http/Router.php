@@ -2,6 +2,8 @@
 
 namespace app\Http;
 
+use app\Http\Middleware\Middleware;
+
 final class Router {
     private static $routes = [];
     public static function get ($url, $Controller) {
@@ -26,5 +28,16 @@ final class Router {
     }
     public static function routeAll () {
         return self::$routes;
+    }
+
+    // Middleware
+    public static function middleware ($middleware=null) {
+        $allMiddleware = Middleware::all();
+        if ($middleware){
+            if (array_key_exists($middleware,$allMiddleware)){
+                call_user_func_array([$allMiddleware[$middleware], 'handle'], [new Request()]);
+                return new Middleware;
+            }
+        }
     }
 }

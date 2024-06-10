@@ -5,9 +5,14 @@ namespace app\Controllers;
 
 use app\Http\Request;
 use app\Http\Response;
+use app\Models\Devices;
 use app\Models\User;
 
 class UserController extends Controller {
+
+    public function index(){
+        return view('login');
+    }
     public static function signup (Request $request) {
         $attributes = $request->validate([
             'username'=>'required|string',
@@ -23,6 +28,7 @@ class UserController extends Controller {
         $attributes['token'] = uniqid(rand(0,100));
         $attributes['password'] = md5($attributes['password']);
         $user = User::create($attributes);
+        Response::setHeader('token', $attributes['token']);
         return $user;
     }
     public static function login(Request $request) {
@@ -53,5 +59,9 @@ class UserController extends Controller {
         }
         Response::setHttpstatus(401);
         return ['error'=>Response::getHttpstatus(), 'message'=>Response::getHttpHeaderText()];
+    }
+
+    public static function myDevices () {
+        return Devices::selectAll();
     }
 }

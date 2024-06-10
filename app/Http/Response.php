@@ -64,6 +64,9 @@ class Response {
         return self::$responseText;
     }
 
+    public static function redirect ($next) {
+        header('Location: ' . Request::scriptName() . $next);
+    }
     public static function errorPage () {
         return view('pages/errorPage',[
             'errorCode'=>Response::getHttpstatus(),
